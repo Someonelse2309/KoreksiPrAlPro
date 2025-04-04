@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Penilaian Tugas</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="scriptContent.js"></script>
+</head>
+<body>
+
+<div id="modalSummary" class="modal">
+    <div class="modal-content">
+        <button onclick="closeModal('modalSummary')">&times</button>
+        <h1>Summary Penilaian</h1>
+        <div id="summaryContent">
+
+        </div>
+    </div>
+</div>
+
+<div id="modalSetting" class="modal">
+    <div class="modal-content">
+        <button onclick="closeModal('modalSetting')">&times</button>
+        <h2>Pengaturan Distribusi Soal</h2>
+        <div class="modal-body-container">
+            <div class="modal-materi">
+
+                <h3>Atur Distribusi Poin Materi</h3>
+                <label>Materi Lengkap:</label>
+                <input type="number" id="inputMateriLengkap" value="40" min="0" max="100"><br>
+                <label>Materi Kurang Lengkap:</label>
+                <input type="number" id="inputMateriKurangLengkap" value="30" min="0" max="100"><br>
+                <label>Materi Tidak Lengkap:</label>
+                <input type="number" id="inputMateriTidakLengkap" value="20" min="0" max="100"><br>
+                <label>Materi Hanya Poin:</label>
+                <input type="number" id="inputMateriHanyaPoin" value="5" min="0" max="100"><br>
+                <label>Tidak Ada Materi:</label>
+                <input type="number" id="inputMateriTidakAda" value="0" min="0" max="100"><br><br>
+
+                <h3>Atur Pengaturan Lain</h3>
+                <label>Pengurangan Plagiasi (%):</label>
+                <input type="number" id="inputPenguranganPlagiasi" value="100" min="0" max="100"><br>
+
+                <label>Ketentuan Halaman (% dari skor awal):</label>
+                <input type="number" id="inputPenguranganHalaman" value="50" min="0" max="100">
+
+            </div>
+            <div class="modal-soal">
+                <h3>Atur Distribusi Poin Soal</h3>
+                <label>Bobot Cara Aplikasi (%):</label>
+                <input type="number" id="inputBobotCaraAplikasi" value="70" min="0" max="100" oninput="updateBobotOutput()"><br>
+
+                <label>Bobot Output Program (%):</label>
+                <input type="number" id="inputBobotOutput" value="30" disabled><br>
+
+                <h3>Atur Bobot Cara Aplikasi</h3>
+                <label>Tepat (%):</label>
+                <input type="number" id="bobotCaraTepat" value="100" min="0" max="100" oninput="updateTotalBobot('cara')"><br>
+
+                <label>Kurang Tepat (%):</label>
+                <input type="number" id="bobotCaraKurangTepat" value="50" min="0" max="100" oninput="updateTotalBobot('cara')"><br>
+
+                <label>Tidak Tepat (%):</label>
+                <input type="number" id="bobotCaraTidakTepat" value="10" min="0" max="100" oninput="updateTotalBobot('cara')"><br>
+
+                <h3>Atur Bobot Output Program</h3>
+                <label>Sesuai (%):</label>
+                <input type="number" id="bobotOutputSesuai" value="100" min="0" max="100" oninput="updateTotalBobot('output')"><br>
+
+                <label>Kurang Sesuai (%):</label>
+                <input type="number" id="bobotOutputKurangSesuai" value="50" min="0" max="100" oninput="updateTotalBobot('output')"><br>
+
+                <label>Tidak Sesuai (%):</label>
+                <input type="number" id="bobotOutputTidakSesuai" value="10" min="0" max="100" oninput="updateTotalBobot('output')"><br>
+
+                <h3>Atur Pengaturan Lain</h3>
+                <label>Pengurangan Plagiasi Soal Latihan (%):</label>
+                <input type="number" id="inputPenguranganPlagiasiSoal" value="100" min="0" max="100"><br>
+            </div>
+        </div>
+        <button onclick="updateDistribusiPoin()">Simpan</button>
+    </div>
+</div>
+
+<h1>Penilaian Laporan</h1>
+
+<button onclick="openModal('modalSetting')">Pengaturan</button>
+<button onclick="openModal('modalSummary')">Penilaian</button>
+<button type="button" onclick="reset()">Clear</button><br><br>
+
+<label><strong>NIM yang bersangkutan :</strong></label>
+<input type="text" id="NIMSubjek" onchange="hitungTotalSkor()">
+<h3>Total Skor Akhir: <span id="totalSkor">0</span></h3>
+
+<div class="koreksi-container">
+    <div class="materi">
+        <div class="section">
+            <strong>Materi:</strong><br>
+
+            <label>
+            <input type="radio" name="materi" value="40" id="radioMateri1" onchange="hitungTotalSkor()">Materi Lengkap
+            </label><br>
+
+            <label>
+            <input type="radio" name="materi" value="30" id="radioMateri2" onchange="hitungTotalSkor()">Materi Kurang Lengkap
+            </label><br>
+
+            <label>
+            <input type="radio" name="materi" value="20" id="radioMateri3" onchange="hitungTotalSkor()">Materi Tidak Lengkap
+            </label><br>
+
+            <label>
+            <input type="radio" name="materi" value="5" id="radioMateri4" onchange="hitungTotalSkor()">Materi Hanya Poin
+            </label><br>
+
+            <label>
+            <input type="radio" name="materi" value="0" id="radioMateri5" onchange="hitungTotalSkor()">Tidak Ada Materi
+            </label><br>
+
+        </div>
+
+        <div class="section">
+            <strong>Ketentuan Halaman:</strong><br>
+            <input type="radio" name="halamanMateri" value="0" onchange="hitungTotalSkor()"> Sesuai<br>
+            <input type="radio" name="halamanMateri" value="1" onchange="hitungTotalSkor()"> Tidak Sesuai<br>
+        </div>
+
+        <div class="section">
+            <strong>Plagiasi:</strong><br>
+            <input type="radio" name="plagiasiMateri" value="0" onclick="toggleTextbox(true, 'plagiasiMateriSubjek')" onchange="hitungTotalSkor()">Ada indikasi plagiasi<br>
+            <input type="radio" name="plagiasiMateri" value="1" onclick="toggleTextbox(false, 'plagiasiMateriSubjek')" onchange="hitungTotalSkor()">Tidak terinidikasi plagiasi<br>
+            <div id="plagiasiMateriSubjek" class="bagianPlagiasi">
+                <label>Plagiasi dengan siapa:</label>
+                    <input type="text" id="subjekPlagiasiMateri" name="subjekPlagiasiMateri"><br>
+            </div>
+        </div>
+
+        <h3>Skor Total Materi: <span id="totalSkorMateri">0</span></h3>
+
+        <div>
+            <h2>Catatan penilai</h2>
+            <textarea id="catatanPenilai" cols="50" rows="10" onchange="hitungTotalSkor()"></textarea>
+        </div>
+    </div>
+
+
+    <div class="soal">
+        <div class="section">
+            <label for="jumlahSoal"><strong>Jumlah Soal Latihan:</strong></label>
+            <input type="number" id="jumlahSoal" onchange="generateSoal()">
+        </div>
+        <div id="containerSoal">
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
