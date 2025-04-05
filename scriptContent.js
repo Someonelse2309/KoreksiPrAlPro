@@ -238,14 +238,26 @@ document.querySelectorAll('input[type="radio"]').forEach(input => {
 });
 
 function hitungTotalSkor() {
-    let skorFinalSkor = 0;
-    const skorMateri = hitungSkorMateri();
-    skorFinalSkor= skorFinalSkor + skorMateri;
-    document.getElementById("totalSkor").textContent = skorFinalSkor;
-    const skorSoal = hitungSkorSoal();
-    skorFinalSkor= skorFinalSkor + skorSoal;
-    document.getElementById("totalSkor").textContent = skorFinalSkor;
-    summaryGenerator(skorMateri, skorSoal, skorFinalSkor);
+    const formatPengumpulan = document.querySelector('input[name="format"]:checked').value;
+    if (formatPengumpulan==="PDF") {
+        let skorFinalSkor = 0;
+        const skorMateri = hitungSkorMateri();
+        skorFinalSkor = skorFinalSkor + skorMateri;
+        document.getElementById("totalSkor").textContent = skorFinalSkor;
+        const skorSoal = hitungSkorSoal();
+        skorFinalSkor = skorFinalSkor + skorSoal;
+        document.getElementById("totalSkor").textContent = skorFinalSkor;
+        summaryGenerator(skorMateri, skorSoal, skorFinalSkor);
+    }
+    else if (formatPengumpulan === "Lainnya") {
+        let skorFinalSkor = 0;
+        const skorMateri = hitungSkorMateri();
+        skorFinalSkor = skorFinalSkor + skorMateri;
+        const skorSoal = hitungSkorSoal();
+        skorFinalSkor = skorFinalSkor + skorSoal;
+        summaryGenerator(skorMateri, skorSoal, `0 (Tidak mengumpulkan PDF)`);
+        document.getElementById("totalSkor").textContent = `0 (Tidak mengumpulkan PDF)`;
+    }
 }
 
 function updateBobotOutput() {
@@ -290,7 +302,7 @@ function summaryGenerator(skorMateri, skorSoal, skorFinalSkor){
     const NIMSubjek = document.getElementById("NIMSubjek").value;
     const materi = getLabel('materi');
     const nilaiMateri = document.querySelector('input[name="materi"]:checked').value;
-    const catatanKorektor = document.getElementById("catatanPenilai").value;
+    let catatanKorektor = document.getElementById("catatanPenilai").value;
 
     const ketentuanHalaman = document.querySelector('input[name="halamanMateri"]:checked');
     let ketentuanHalamanText   = "Memenuhi ketentuan halaman"
@@ -313,6 +325,11 @@ function summaryGenerator(skorMateri, skorSoal, skorFinalSkor){
     if (adaPlagiasiSoal) {
         stringPlagiasiSoal = '(Ada indikasi plagiasi)';
     }
+    alert(catatanKorektor);
+    if (catatanKorektor === '') {
+        catatanKorektor = 'Tidak ada';
+    }
+
     section.innerHTML = `
       <h2>${NIMSubjek}</h2>
       <h3>Penilaian Materi (${skorMateri}/40)</h3>

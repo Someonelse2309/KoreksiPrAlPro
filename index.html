@@ -88,33 +88,40 @@
 <button onclick="openModal('modalSummary')">Penilaian</button>
 <button type="button" onclick="reset()">Clear</button><br><br>
 
-<label><strong>NIM yang bersangkutan :</strong></label>
+<label><strong>NIM :</strong></label>
 <input type="text" id="NIMSubjek" onchange="hitungTotalSkor()">
 <h3>Total Skor Akhir: <span id="totalSkor">0</span></h3>
 
 <div class="koreksi-container">
     <div class="materi">
         <div class="section">
+            <strong>Format Data</strong>
+            <label>
+                <input type="radio" name="format" value="PDF" onchange="hitungTotalSkor()"> PDF
+            </label>
+            <label>
+                <input type="radio" name="format" value="Lainnya" onchange="hitungTotalSkor()"> Selain PDF
+            </label><br><br>
             <strong>Materi:</strong><br>
 
             <label>
-            <input type="radio" name="materi" value="40" id="radioMateri1" onchange="hitungTotalSkor()">Materi Lengkap
+                <input type="radio" name="materi" value="40" id="radioMateri1" onchange="hitungTotalSkor()">Materi Lengkap
             </label><br>
 
             <label>
-            <input type="radio" name="materi" value="30" id="radioMateri2" onchange="hitungTotalSkor()">Materi Kurang Lengkap
+                <input type="radio" name="materi" value="30" id="radioMateri2" onchange="hitungTotalSkor()">Materi Kurang Lengkap
             </label><br>
 
             <label>
-            <input type="radio" name="materi" value="20" id="radioMateri3" onchange="hitungTotalSkor()">Materi Tidak Lengkap
+                <input type="radio" name="materi" value="20" id="radioMateri3" onchange="hitungTotalSkor()">Materi Tidak Lengkap
             </label><br>
 
             <label>
-            <input type="radio" name="materi" value="5" id="radioMateri4" onchange="hitungTotalSkor()">Materi Hanya Poin
+                <input type="radio" name="materi" value="5" id="radioMateri4" onchange="hitungTotalSkor()">Materi Hanya Poin
             </label><br>
 
             <label>
-            <input type="radio" name="materi" value="0" id="radioMateri5" onchange="hitungTotalSkor()">Tidak Ada Materi
+                <input type="radio" name="materi" value="0" id="radioMateri5" onchange="hitungTotalSkor()">Tidak Ada Materi
             </label><br>
 
         </div>
@@ -131,7 +138,7 @@
             <input type="radio" name="plagiasiMateri" value="1" onclick="toggleTextbox(false, 'plagiasiMateriSubjek')" onchange="hitungTotalSkor()">Tidak terinidikasi plagiasi<br>
             <div id="plagiasiMateriSubjek" class="bagianPlagiasi">
                 <label>Plagiasi dengan siapa:</label>
-                    <input type="text" id="subjekPlagiasiMateri" name="subjekPlagiasiMateri"><br>
+                <input type="text" id="subjekPlagiasiMateri" name="subjekPlagiasiMateri"><br>
             </div>
         </div>
 
