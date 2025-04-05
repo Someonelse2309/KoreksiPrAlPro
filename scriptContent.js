@@ -325,7 +325,6 @@ function summaryGenerator(skorMateri, skorSoal, skorFinalSkor){
     if (adaPlagiasiSoal) {
         stringPlagiasiSoal = '(Ada indikasi plagiasi)';
     }
-    alert(catatanKorektor);
     if (catatanKorektor === '') {
         catatanKorektor = 'Tidak ada';
     }
